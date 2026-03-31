@@ -1,0 +1,26 @@
+// Documentação
+// https://github.com/microsoft/Analysis-Services/tree/master/BestPracticeRules
+// Video
+// https://www.youtube.com/watch?v=5pu9FoTUpys
+System.Net.WebClient w = new System.Net.WebClient();
+string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData);
+string downloadLoc = path+@"\TabularEditor\BPARules.json";
+string url = "https://raw.githubusercontent.com/vinicarecho/PowerBI/main/BPARules.json";
+string dlMessage = "Atualizado as regras de BPA!! Por favor reinicie o Tabular Editor.";
+if (System.IO.File.Exists(downloadLoc))
+{
+   if (System.Windows.Forms.MessageBox.Show("Gostaria de atualizar as regras de BPA existentes?","Atualizar regras de BPA existentes",System.Windows.Forms.MessageBoxButtons.YesNo,System.Windows.Forms.MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+   {
+       w.DownloadFile(url, downloadLoc);
+       System.Windows.Forms.MessageBox.Show(dlMessage,"Atualizar regras de BPA existentes",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
+   }
+   else
+   {
+       System.Windows.Forms.MessageBox.Show("Não foi atualizado as regras de BPA","Atualizar regras de BPA existentes",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
+   }
+}
+else
+{
+   System.Windows.Forms.MessageBox.Show(dlMessage,"Baixe as regras do BPA",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
+   w.DownloadFile(url, downloadLoc);
+}
